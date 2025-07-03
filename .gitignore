@@ -1,0 +1,13 @@
+
+# Default output folder location
+output/*/
+
+# Reference data
+data/*/
+data/*.bim
+data/*.frq
+data/*.gz
+
+# PRIMUS dependencies
+dependencies/PRIMUS_v1.9.0/lib/hapmap3
+dependencies/PRIMUS_v1.9.0/lib/KDE_data
