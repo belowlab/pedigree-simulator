@@ -1734,9 +1734,9 @@ sub run_cranefoot
 	run_system("mv $sim.ps $dir");
 	run_system("rm $sim.topology.txt");
 
-	## Implement ps2pdf 
-	run_system("ps2pdf -dFirstPage=2 $dir/$sim.ps $dir/$sim.pdf");
-	run_system("rm $dir/$sim.ps");
+	## Implement ps2pdf - TBD UNTIL I CAN FIGURE OUT A DOCKER IMPLEMENTATION
+	#run_system("ps2pdf -dFirstPage=2 $dir/$sim.ps $dir/$sim.pdf");
+	#run_system("rm $dir/$sim.ps");
 
 }
 
@@ -2894,9 +2894,9 @@ sub make_simulated_pedigree {
 		}
 
 
-		print "samples to visit: @samples_to_visit\n";
+		print "Samples to visit: @samples_to_visit\n";
 		$curr_ID = shift(@samples_to_visit);
-		print "sample: $curr_ID = $generations{$curr_ID}\n";
+		print "Sample: $curr_ID = $generations{$curr_ID}\n";
 		#exit;
 	}
 
@@ -3096,7 +3096,7 @@ sub add_children
 		return ();
 	}
 
-	print "sample_ctr: $sample_ctr; $num_children\n";
+	print "Sample counter: $sample_ctr; $num_children children\n";
 
 	################################################################
 

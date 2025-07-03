@@ -70,7 +70,7 @@ if __name__ == '__main__':
         p=(int(l.split()[6])-1)+(chr_origin*opts.cn)
         chroms[id][p]=l.split()[7:]
     input.close()
-    print(("Done reading "+data_file))
+    #print(("Done reading "+data_file))
     
     print("Calculating IBD ...")
     counter = 1
