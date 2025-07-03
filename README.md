@@ -60,3 +60,25 @@ The `main.pl` script takes several positional arguments. The following descripti
 ### Notes
 
 - This tool generates a full pedigree as well as incrementally missing versions (up to 20% of all pedigree nodes). This is an artifact of the code left over from our developement done in line with the COMPADRE benchmarking, where we evaluated pedigree reconstruction success as pedigrees became more sparse. If you want to change the maximum % of samples removed in this incremental process, please update the global `$missing_denominator` variable in line 45 of `src/main.pl` _before_ building the Docker image. The default value of 5 divides the total pedigree size by 5, removing 1/5th of all nodes in the last incrementally missing version of the pedigree. If you want more missingness than 20%, consider decreasing the value to 4 or 2, and if you want more, increase it.  
+
+
+
+## Questions?
+
+Please email <strong><i>contact AT compadre DOT dev</strong></i> with the subject line "Pedigree Simulator Help" or [submit an issue report/pull request on GitHub](https://github.com/belowlab/pedigree-simulator/issues). 
+
+If you use Pedigree Simulator in your research, please cite the following:
+```
+Evans GF, Baker JT, Petty LE, Petty AS, Polikowsky HG, Bohlender RJ, Chen HH, Chou CY, 
+Viljoen KZ, Beilby JM, Kraft SJ, Zhu W, Landman JM, Morrow AR, Bian D, Scartozzi AC, 
+Huff CD, Below JE. COMPADRE: Combined Pedigree-aware Distant Relatedness Estimation 
+for improved pedigree reconstruction using integrated relationship estimation approaches 
+[Publication details forthcoming]
+```
+
+
+## License
+
+Pedigree Simulator was developed by the [Below Lab](https://thebelowlab.com) in the Division of Genetic Medicine at Vanderbilt University Medical Center, Nashville, TN, USA. 
+
+Pedigree Simulator is distributed under the following APACHE 2.0 license: https://compadre.dev/licenses/sim_license.txt
