@@ -42,6 +42,7 @@ my $num_complex_relationships = 1;
 my $HALF_SIB_RATE = .3;
 my $NUM_HS = 2;
 my $parallel_status = "false";
+my $missing_denominator = 5;
 
 my @PC_k0s;
 my @FS_k0s;
@@ -318,7 +319,7 @@ sub make_incrementally_increasing_missing_versions {
 
 	$Missing_ctr = make_simple_gap($sim_dir,$sim_name,$Missing_ctr);
 
-	for my $num_to_remove (1..($MAX_SAMPLES / 5))  # UPDATE 6/3/24 so that we can adjust for size 40 pedigrees 
+	for my $num_to_remove (1..($MAX_SAMPLES / $missing_denominator))
 	{
 		my $ctr_before = $Missing_ctr;
 
@@ -770,7 +771,7 @@ sub add_genotypes {
 		
 
 		## build command string for each chromosome
-		my $full_command = "python $simulation_dir/sim_to_genotypes.py --mode=IBD --chr=$chr --simulation=$fam_file_root\_diag.txt --map $genetic_map_file --out=$fam_file_root.chr$chr\_diag.vcf --chunk=10000 --write-names=$fam_file_root.chr$chr\_diag.names --gzip $reference_sample_file\n";
+		my $full_command = "python3 $simulation_dir/sim_to_genotypes.py --mode=IBD --chr=$chr --simulation=$fam_file_root\_diag.txt --map $genetic_map_file --out=$fam_file_root.chr$chr\_diag.vcf --chunk=10000 --write-names=$fam_file_root.chr$chr\_diag.names --gzip $reference_sample_file\n";
 
 		## concatenate the 22-chr string to be read into parallel
 		$command_str = $command_str . $full_command;

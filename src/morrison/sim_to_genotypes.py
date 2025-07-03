@@ -694,8 +694,8 @@ Expected vcf or bgl. Ensure that .vcf or .bgl is in file name""")
         for snp in snp_names:
             genos = []
             for i in range(len(files)):
-                # We only need to get the number of 
-                genos.extend(re.split('[\t\|]', next(files[i]).rstrip(), (len(names) * 2) + 9)[9:])
+                #genos.extend(re.split(r'[\t\|]', next(files[i]).rstrip(), (len(names) * 2) + 9)[9:])
+                genos.extend(re.split(r'[\t\|]', next(files[i]).rstrip(), maxsplit=(len(names) * 2) + 9)[9:])
             genos = [genos[x] for x in founder_range]
             for i in range(1, len(names)+1):
                 founder_genomes[i].append(genos[i-1])
