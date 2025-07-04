@@ -1,7 +1,7 @@
 
 # Pedigree Simulator
 
-Pedigree Simulator is an improved version of a tool originally developed by [Staples _et al._ (2014)](https://www.cell.com/ajhg/fulltext/S0002-9297(14)00427-3) to benchmark PRIMUS in its original publication. It also uses code from the [IBDsims program](https://github.com/jean997/IBDsims) developed by [Morrison (2013)](https://onlinelibrary.wiley.com/doi/abs/10.1002/gepi.21737). This version was developed to introduce runtime optimizations and containerization for use in a variety of contexts, notably including the benchmarking of [COMPADRE](https://compadre.dev), a tool that unifies PRIMUS, ERSA, and PADRE.
+Pedigree Simulator is an improved version of a tool originally developed by [Staples _et al._ (2014)](https://www.cell.com/ajhg/fulltext/S0002-9297(14)00427-3) to generate simulated pedigrees for benchmarking PRIMUS in its original publication. This tool also uses code from the [IBDsims program](https://github.com/jean997/IBDsims) developed by [Morrison (2013)](https://onlinelibrary.wiley.com/doi/abs/10.1002/gepi.21737). We developed this version to introduce compute optimizations for use in a variety of contexts; specifically, for benchmarking [COMPADRE](https://compadre.dev), a tool that unifies PRIMUS, ERSA, and PADRE.
 
 
 ## Installation
@@ -19,7 +19,7 @@ cd pedigree-simulator
 Build the Docker image:
 
 ```bash
-docker build -f Dockerfile.github -t pedigreesim .
+docker build -t pedigreesim .
 ```
 
 Note: The build process will take between 10-20 minutes due to the size of the reference data being downloaded (approx. 40 gigabytes after being unzipped).
@@ -54,7 +54,7 @@ The `main.pl` script takes several positional arguments. The following descripti
 - `EUR`: The 1000 Genomes superpopulation from which founder genotypes are drawn. Currently, the script supports EUR (European) and AMR (Admixed American) superpopulation seeding.
 
 #### Optional:
-- `parallel` enables parallel processing of the genotype adding step with 22 threads (one per chromosome). This is much faster but RAM intensive and not recommended outside of HPC/server environments. This step will run using a single thread if this argument is not used.
+- `parallel` enables parallel processing of the genotype adding step with 22 threads (one per chromosome). This is much faster but very RAM intensive and not recommended outside of HPC/server environments. The genotype adding step will run using a single thread if this argument is not used.
 
 
 ### Notes
@@ -65,9 +65,9 @@ The `main.pl` script takes several positional arguments. The following descripti
 
 ## Questions?
 
-Please email <strong><i>contact AT compadre DOT dev</strong></i> with the subject line "Pedigree Simulator Help" or [submit an issue report/pull request on GitHub](https://github.com/belowlab/pedigree-simulator/issues). 
+Please email <strong><i>contact AT compadre DOT dev</strong></i> with the subject line "Pedigree Simulation Help" or [submit an issue report/pull request on GitHub](https://github.com/belowlab/pedigree-simulator/issues). 
 
-If you use Pedigree Simulator in your research, please cite the following:
+If you use this tool in your research, please cite the following:
 ```
 Evans GF, Baker JT, Petty LE, Petty AS, Polikowsky HG, Bohlender RJ, Chen HH, Chou CY, 
 Viljoen KZ, Beilby JM, Kraft SJ, Zhu W, Landman JM, Morrow AR, Bian D, Scartozzi AC, 
