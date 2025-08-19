@@ -111,6 +111,8 @@ if($type eq "uniform2")
 	$sample_ctr = 0;
 	$MAX_SAMPLES = shift;
 	my $ONEKG_pop = shift;
+	$parallel_status = shift // $parallel_status;
+
 	print("\npop: $ONEKG_pop\n\n");
 	$MAX_GENERATIONS = 20;
 	$NUM_SIMULATIONS = 100;
@@ -121,12 +123,12 @@ if($type eq "uniform2")
 	make_simulated_pedigree("$output_directory",$ONEKG_pop,"$type\_size$MAX_SAMPLES\_sim$sim");
 
 	# missing ID steps
-	print ("\nmoving on to missing versions\n");
-	print "output_directory: $output_directory\n";
-	print "type: $type\n";
-	print "MAX_SAMPLES: $MAX_SAMPLES\n";
-	print "sim: $sim\n";
-	print "Missing_ctr: $Missing_ctr\n\n";
+	# print ("\nmoving on to missing versions\n");
+	# print "output_directory: $output_directory\n";
+	# print "type: $type\n";
+	# print "MAX_SAMPLES: $MAX_SAMPLES\n";
+	# print "sim: $sim\n";
+	# print "Missing_ctr: $Missing_ctr\n\n";
 	
 	make_incrementally_increasing_missing_versions($output_directory,$type,$MAX_SAMPLES,$sim,$Missing_ctr);
 }
@@ -768,7 +770,6 @@ sub add_genotypes {
 
 		## UPDATE 11/22/24
 		my $reference_sample_file = "$data_dir/reference/$ONEKG_pop/1KG.$ONEKG_pop.GRCH38.rsID.chr$chr.vcf.gz";   
-		
 
 		## build command string for each chromosome
 		my $full_command = "python3 $simulation_dir/sim_to_genotypes.py --mode=IBD --chr=$chr --simulation=$fam_file_root\_diag.txt --map $genetic_map_file --out=$fam_file_root.chr$chr\_diag.vcf --chunk=10000 --write-names=$fam_file_root.chr$chr\_diag.names --gzip $reference_sample_file\n";

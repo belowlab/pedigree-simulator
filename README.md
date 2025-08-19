@@ -28,7 +28,9 @@ Note: The build process will take between 10-20 minutes due to the size of the r
 
 ## Execution
 
-After building the Docker image, enter the container using `docker run`. During this step, you should also set your local volume mount (for writing the output) specified by the `-v` flag. Note: Make sure to provide the absolute path to your local output folder in this flag. Even if you run the `docker run` command from inside the top level of the repository folder, you must use `./output` instead of just `output`.
+After building the Docker image, enter the container using `docker run`. During this step, you should also set your local volume mount (for writing the output), specified by the `-v` flag. 
+
+Note: Make sure to provide the absolute path to your local output folder in this flag. Even if you run the `docker run` command from inside the top level of the repository folder, you must use `./output` instead of just `output`.
 
 ```bash
 docker run -v \
@@ -54,18 +56,26 @@ The `main.pl` script takes several positional arguments. The following descripti
 - `EUR`: The 1000 Genomes superpopulation from which founder genotypes are drawn. Currently, the script supports EUR (European) and AMR (Admixed American) superpopulation seeding.
 
 #### Optional:
-- `parallel` enables parallel processing of the genotype adding step with 22 threads (one per chromosome). This is much faster but very RAM intensive and not recommended outside of HPC/server environments. The genotype adding step will run using a single thread if this argument is not used.
+- `parallel`: Enables parallel processing of the genotype adding step with 22 threads (one per chromosome). This is much faster but very RAM intensive and not recommended outside of HPC/server environments. The genotype adding step will run using a single thread if this argument is not used. 
 
 
 ### Notes
 
-- This tool generates a full pedigree as well as incrementally missing versions (up to 20% of all pedigree nodes). This is an artifact of the code left over from our developement done in line with the COMPADRE benchmarking, where we evaluated pedigree reconstruction success as pedigrees became more sparse. If you want to change the maximum % of samples removed in this incremental process, please update the global `$missing_denominator` variable in line 45 of `src/main.pl` _before_ building the Docker image. The default value of 5 divides the total pedigree size by 5, removing 1/5th of all nodes in the last incrementally missing version of the pedigree. If you want more missingness than 20%, consider decreasing the value to 4 or 2, and if you want more, increase it.  
+This tool generates a full pedigree as well as incrementally missing versions (up to 20% of all pedigree nodes). For example, a size 20 pedigree output will contain versions with up to 4 nodes missing. This is an artifact of the code left over from our developement done in line with the COMPADRE benchmarking, where we evaluated pedigree reconstruction success as pedigrees became more sparse. If you want to change the maximum % of samples removed in this incremental process, please update the global `$missing_denominator` variable in line 45 of `src/main.pl` _before_ building the Docker image. The default value of 5 divides the total pedigree size by 5, removing 1/5th (20%) of all nodes by the last incrementally missing version of the pedigree. If you want more missingness than 20%, consider decreasing the value to 4 or 2, and if you want more, increase it.
+
+
+
+## IBD segment generation
+
+Tools like [COMPADRE](https://compadre.dev) utilize shared IBD segments alongside typical genotype data. We generated IBD segments in our benchmarking of COMPADRE by first phasing the simulated output VCF files with [SHAPEIT5](https://odelaneau.github.io/shapeit5/) (using unique BioVU haplotypes as a reference panel), then performing segment detection with [GERMLINE2](https://github.com/gusevlab/germline2). We provided a basic script to highlight the command structure we used in our own benchmarking in the `tools/` folder. Note that this script expects a .env file with several executable paths, such as for SHAPEIT, GERMLINE, PLINK2, Python 3, as well as a genetic map file folder path.
+
+Another option is to perform phase-free segment detection with tools like [IBIS](https://github.com/williamslab/ibis). This is a useful option if you are trying to evaluate tools like [Bonsai](https://github.com/23andme/bonsaitree) that expect unphased data. 
 
 
 
 ## Questions?
 
-Please email <strong><i>contact AT compadre DOT dev</strong></i> with the subject line "Pedigree Simulation Help" or [submit an issue report/pull request on GitHub](https://github.com/belowlab/pedigree-simulator/issues). 
+Please email <strong><i>contact AT compadre DOT dev</strong></i> with the subject line "Pedigree Simulator Help" or [submit an issue report/pull request on GitHub](https://github.com/belowlab/pedigree-simulator/issues). 
 
 If you use this tool in your research, please cite the following:
 ```
